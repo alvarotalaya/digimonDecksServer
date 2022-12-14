@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
+    PlayerEntity findByEmailAndPassword(String email, String password); //oAuth
+
     boolean existsByEmail(String email);
 
     Page<PlayerEntity> findByUsertypeId(Long id_usertype, Pageable oPageable);

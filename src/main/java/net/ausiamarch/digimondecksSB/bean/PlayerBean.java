@@ -5,17 +5,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlayerBean {
     @Schema(example = "admin")
-    private String name = "";
+    private String email = "";
     @Schema(example = "4298f843f830fb3cc13ecdfe1b2cf10f51f929df056d644d1bca73228c5e8f64")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password = "";
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setemail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -25,4 +25,5 @@ public class PlayerBean {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
