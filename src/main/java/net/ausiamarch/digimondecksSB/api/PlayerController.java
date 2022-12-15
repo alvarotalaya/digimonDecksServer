@@ -45,7 +45,7 @@ public class PlayerController {
         return new ResponseEntity<Long>(oPlayerService.count(), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody PlayerEntity oPlayerEntity) {
         return new ResponseEntity<Long>(oPlayerService.update(oPlayerEntity), HttpStatus.OK);
     }

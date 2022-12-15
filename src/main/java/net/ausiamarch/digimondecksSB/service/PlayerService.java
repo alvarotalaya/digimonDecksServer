@@ -86,6 +86,7 @@ public class PlayerService {
         //oAuthService.OnlyAdmins();
         PlayerEntity oOldPlayerEntity=oPlayerRepository.getById(oPlayerEntity.getId());
         oPlayerEntity.setPassword(oOldPlayerEntity.getPassword());
+        oPlayerEntity.setUsertype(oOldPlayerEntity.getUsertype());
         return oPlayerRepository.save(oPlayerEntity).getId();
     }
 
@@ -94,6 +95,7 @@ public class PlayerService {
         validate(oNewPlayerEntity);
         oNewPlayerEntity.setId(0L);
         oNewPlayerEntity.setPassword(DIGIMON_DEFAULT_PASSWORD);
+
         return oPlayerRepository.save(oNewPlayerEntity).getId();
     }
 
@@ -114,7 +116,6 @@ public class PlayerService {
         oPlayerEntity.setName(names.get(RandomHelper.getRandomInt(0, names.size() - 1)));
         oPlayerEntity.setPassword(DIGIMON_DEFAULT_PASSWORD);
         oPlayerEntity.setEmail(RandomHelper.getRandomInt(0, 999999) + "@test.com");
-
         int totalUsertypes = (int) oUsertypeRepository.count();
         int randomUserTypeId = RandomHelper.getRandomInt(1, totalUsertypes);
         oUsertypeRepository.findById((long) randomUserTypeId)

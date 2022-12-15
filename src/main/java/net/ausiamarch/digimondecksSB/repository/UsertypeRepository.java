@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UsertypeRepository extends JpaRepository<UsertypeEntity, Long> {
 
-    
 }
