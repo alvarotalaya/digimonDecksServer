@@ -46,7 +46,7 @@ public class PlayerService {
         if (oPlayerRepository.existsByEmail(oPlayerEntity.getEmail())) {
             throw new ValidationException("este email ya se esta usando en otra cuenta");
         }
-        //oUsertypeService.validate(oPlayerEntity.getUsertype().getId());
+        oUsertypeService.validate(oPlayerEntity.getUsertype().getId());
     }
 
     public void validate(Long id) {
