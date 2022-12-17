@@ -32,8 +32,18 @@
  */
 package net.ausiamarch.digimondecksSB.helper;
 
-public class TipoUsuarioHelper {
+public enum UsertypeHelper {
+    ADMIN(1L), USER(2L);
+    private final Long usertype;
+    
+    UsertypeHelper(Long usertype) {
+        this.usertype = usertype;
+    }
+    
+    public Long getUsertype() {
+        return usertype;
+    }       
+      
 
-    public static final Long ADMIN = 1L;
-    public static final Long USER = 2L;
 }
+

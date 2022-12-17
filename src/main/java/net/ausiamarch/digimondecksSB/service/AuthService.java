@@ -32,6 +32,7 @@
  */
 package net.ausiamarch.digimondecksSB.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import net.ausiamarch.digimondecksSB.bean.CaptchaBean;
@@ -39,8 +40,9 @@ import net.ausiamarch.digimondecksSB.bean.CaptchaResponse;
 import net.ausiamarch.digimondecksSB.bean.PlayerBean;
 import net.ausiamarch.digimondecksSB.exception.UnauthorizedException;
 import net.ausiamarch.digimondecksSB.entity.PlayerEntity;
+import net.ausiamarch.digimondecksSB.helper.JwtHelper;
 import net.ausiamarch.digimondecksSB.helper.RandomHelper;
-import net.ausiamarch.digimondecksSB.helper.TipoUsuarioHelper;
+import net.ausiamarch.digimondecksSB.helper.UsertypeHelper;
 import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,35 +52,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AuthService {
 
     @Autowired
-    HttpSession oHttpSession;
+    private HttpServletRequest oRequest;
 
     @Autowired
     PlayerRepository oPlayerRepository;
 
-    public PlayerEntity login(@RequestBody PlayerBean oPlayerBean) {
+    public String login(@RequestBody PlayerBean oPlayerBean) {
         if (oPlayerBean.getPassword() != null) {
             PlayerEntity oPlayerEntity = oPlayerRepository.findByEmailAndPassword(oPlayerBean.getEmail(), oPlayerBean.getPassword());
             if (oPlayerEntity != null) {
-                oHttpSession.setAttribute("Player", oPlayerEntity);
-                return oPlayerEntity;
+                return JwtHelper.generateJWT(oPlayerBean.getEmail());
             } else {
-                throw new UnauthorizedException("email or password incorrect");
+                throw new UnauthorizedException("login or password incorrect");
             }
         } else {
             throw new UnauthorizedException("wrong password");
         }
     }
 
-    public void logout() {
-        oHttpSession.invalidate();
+    public PlayerEntity check() {
+        String strPlayerName = (String) oRequest.getAttribute("Player");
+        if (strPlayerName != null) {
+            PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayerName);
+            return oPlayerEntity;
+        } else {
+            throw new UnauthorizedException("No active session");
+        }
     }
 
-    public PlayerEntity check() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+    public boolean isAdmin() {
+        PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String)  oRequest.getAttribute("Player"));
         if (oPlayerSessionEntity != null) {
-            return oPlayerSessionEntity;
+            if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN.getUsertype())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void OnlyAdmins() {
+        PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String)  oRequest.getAttribute("Player"));
+        if (oPlayerSessionEntity == null) {
+            throw new UnauthorizedException("this request is only allowed to admin role");
         } else {
-            throw new UnauthorizedException("no active session");
+            if (!oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN.getUsertype())) {
+                throw new UnauthorizedException("this request is only allowed to admin role");
+            }
         }
     }
 

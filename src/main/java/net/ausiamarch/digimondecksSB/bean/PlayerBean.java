@@ -14,7 +14,7 @@ public class PlayerBean {
         return email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

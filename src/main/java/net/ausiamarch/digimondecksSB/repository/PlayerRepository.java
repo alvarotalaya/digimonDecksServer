@@ -13,6 +13,8 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     boolean existsByEmail(String email);
 
+    PlayerEntity findByEmail(String email);
+
     Page<PlayerEntity> findByUsertypeId(Long id_usertype, Pageable oPageable);
 
     Page<PlayerEntity> findByNameIgnoreCase(String strFilterName, Pageable oPageable);
