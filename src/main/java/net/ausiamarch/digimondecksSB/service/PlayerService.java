@@ -46,7 +46,7 @@ public class PlayerService {
         if (oPlayerRepository.existsByEmail(oPlayerEntity.getEmail())) {
             throw new ValidationException("este email ya se esta usando en otra cuenta");
         }
-        oUsertypeService.validate(oPlayerEntity.getUsertype().getId());
+        //oUsertypeService.validate(oPlayerEntity.getUsertype().getId());
     }
 
     public void validate(Long id) {
@@ -56,13 +56,13 @@ public class PlayerService {
     }
 
     public PlayerEntity get(Long id) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         validate(id);
         return oPlayerRepository.getById(id);
     }
 
     public Page<PlayerEntity> getPage(Pageable oPageable, String strFilter, Long id_usertype) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if (strFilter == null || strFilter.length() == 0) {
             if (id_usertype == null) {
@@ -80,13 +80,13 @@ public class PlayerService {
      }
 
     public Long count() {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         return oPlayerRepository.count();
     }
 
     public Long update(PlayerEntity oPlayerEntity) {
         validate(oPlayerEntity.getId());
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         PlayerEntity oOldPlayerEntity=oPlayerRepository.getById(oPlayerEntity.getId());
         oPlayerEntity.setPassword(oOldPlayerEntity.getPassword());
         oPlayerEntity.setUsertype(oOldPlayerEntity.getUsertype());
@@ -94,7 +94,7 @@ public class PlayerService {
     }
 
     public Long create(PlayerEntity oNewPlayerEntity) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         validate(oNewPlayerEntity);
         oNewPlayerEntity.setId(0L);
         oNewPlayerEntity.setPassword(DIGIMON_DEFAULT_PASSWORD);
@@ -103,7 +103,7 @@ public class PlayerService {
     }
 
     public Long delete(Long id) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         validate(id);
         oPlayerRepository.deleteById(id);
         if (oPlayerRepository.existsById(id)) {
@@ -128,12 +128,12 @@ public class PlayerService {
     }
 
     public PlayerEntity generateOne() {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         return oPlayerRepository.save(generatePlayer());
     }
 
     public Long generateSome(Long amount) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         List<PlayerEntity> PlayerToSave = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             PlayerToSave.add(generatePlayer());
