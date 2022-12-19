@@ -56,7 +56,7 @@ public class PlayerService {
     }
 
     public PlayerEntity get(Long id) {
-        oAuthService.OnlyAdminsOrOwnUsersData(id);
+        oAuthService.OnlyAdmins();
         validate(id);
         return oPlayerRepository.getById(id);
     }

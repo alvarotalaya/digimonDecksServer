@@ -65,7 +65,7 @@ public class AuthService {
         if (oPlayerBean.getPassword() != null) {
             PlayerEntity oPlayerEntity = oPlayerRepository.findByEmailAndPassword(oPlayerBean.getEmail(), oPlayerBean.getPassword());
             if (oPlayerEntity != null) {
-                oHttpSession.setAttribute("Player", oPlayerEntity);
+                oHttpSession.setAttribute("player", oPlayerEntity);
                 return oPlayerEntity;
             } else {
                 throw new UnauthorizedException("email or password incorrect");
@@ -80,7 +80,7 @@ public class AuthService {
     }
 
     public PlayerEntity check() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity != null) {
             return oPlayerSessionEntity;
         } else {
@@ -89,7 +89,7 @@ public class AuthService {
     }
 
     public boolean isLoggedIn() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity == null) {
             return false;
         } else {
@@ -98,7 +98,7 @@ public class AuthService {
     }
 
     public Long getUserID() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity != null) {
             return oPlayerSessionEntity.getId();
         } else {
@@ -107,7 +107,7 @@ public class AuthService {
     }
 
     public boolean isAdmin() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity != null) {
             if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
                 return true;
@@ -117,7 +117,7 @@ public class AuthService {
     }
 
     public boolean isUser() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity != null) {
             if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.USER)) {
                 return true;
@@ -127,8 +127,7 @@ public class AuthService {
     }
 
     public void OnlyAdmins() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
-        System.out.println(oPlayerSessionEntity);
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity == null) {
             throw new UnauthorizedException("this request is only 1 to admin role");
         } else {
@@ -139,7 +138,7 @@ public class AuthService {
     }
 
     public void OnlyUsers() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity == null) {
             throw new UnauthorizedException("this request is only allowed to user role");
         } else {
@@ -150,7 +149,7 @@ public class AuthService {
     }
 
     public void OnlyAdminsOrUsers() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity == null) {
             throw new UnauthorizedException("this request is only allowed to user or admin role");
         } else {
@@ -159,7 +158,7 @@ public class AuthService {
     }
 
     public void OnlyAdminsOrOwnUsersData(Long id) {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("Player");
+        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
         if (oPlayerSessionEntity != null) {
             if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.USER)) {
                 if (!oPlayerSessionEntity.getId().equals(id)) {
