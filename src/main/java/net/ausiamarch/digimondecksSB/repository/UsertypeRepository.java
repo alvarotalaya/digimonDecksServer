@@ -9,4 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UsertypeRepository extends JpaRepository<UsertypeEntity, Long> {
 
+    boolean existsByType(String type);
+
+    Page<UsertypeEntity> findByType(String type, Pageable oPageable);
 }
