@@ -1,7 +1,130 @@
 package net.ausiamarch.digimondecksSB.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "card")
+@JsonIgnoreProperties({ "hibernateLazyInitialize", "handler" })
 public class CardEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
+    String name;
+    String type;
+    String color;
+    String stage;
+    String digitype;
+    String attribute;
+    int level;
+    int playcost;
+    int evolution_cost;
+    int dp;
+    String cardnumber;
+    String maineffect;
+    String sourceeffect;
+    String image;
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getColor() {
+        return color;
+    }
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public String getStage() {
+        return stage;
+    }
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+    public String getDigitype() {
+        return digitype;
+    }
+    public void setDigitype(String digitype) {
+        this.digitype = digitype;
+    }
+    public String getAttribute() {
+        return attribute;
+    }
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+    public int getLevel() {
+        return level;
+    }
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    public int getPlaycost() {
+        return playcost;
+    }
+    public void setPlaycost(int playcost) {
+        this.playcost = playcost;
+    }
+    public int getEvolution_cost() {
+        return evolution_cost;
+    }
+    public void setEvolution_cost(int evolution_cost) {
+        this.evolution_cost = evolution_cost;
+    }
+    public int getDp() {
+        return dp;
+    }
+    public void setDp(int dp) {
+        this.dp = dp;
+    }
+    public String getCardnumber() {
+        return cardnumber;
+    }
+    public void setCardnumber(String cardnumber) {
+        this.cardnumber = cardnumber;
+    }
+    public String getMaineffect() {
+        return maineffect;
+    }
+    public void setMaineffect(String maineffect) {
+        this.maineffect = maineffect;
+    }
+    public String getSourceeffect() {
+        return sourceeffect;
+    }
+    public void setSourceeffect(String sourceeffect) {
+        this.sourceeffect = sourceeffect;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }  
 }
 
 /* {"name":"Canoweissmon","type":"Digimon","color":"Red","stage":"Ultimate","digi_type":"Sky Dragon"

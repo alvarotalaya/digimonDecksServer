@@ -24,13 +24,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `card` (
   `id` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `color` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `cardType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `stage` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `digitype` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `attribute` varchar(255) COLLATE utf8_unicode_ci NULL,
   `level` int(1) NOT NULL DEFAULT 0,
   `playCost` int(1) NOT NULL DEFAULT 0,
-  `evolutionCost` int(1) NOT NULL DEFAULT 0,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `cardNumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `evolutioncost` int(1) NOT NULL DEFAULT 0,
+  `dp` int (5) NOT NULL DEFAULT 0,
+  `cardnumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `maineffect` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sourceeffect` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -160,24 +165,24 @@ ALTER TABLE `player`
 -- AUTO_INCREMENT de la tabla `card`
 --
 ALTER TABLE `card`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `deck`
 --
 ALTER TABLE `deck`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `carddeck`
 --
 ALTER TABLE `carddeck`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 COMMIT;
