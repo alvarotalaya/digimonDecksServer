@@ -23,20 +23,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `card` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `color` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `color` varchar(255) COLLATE utf8_unicode_ci NULL,
   `stage` varchar(255) COLLATE utf8_unicode_ci NULL,
   `digitype` varchar(255) COLLATE utf8_unicode_ci NULL,
   `attribute` varchar(255) COLLATE utf8_unicode_ci NULL,
-  `level` int(1) NOT NULL DEFAULT 0,
-  `playCost` int(1) NOT NULL DEFAULT 0,
-  `evolutioncost` int(1) NOT NULL DEFAULT 0,
-  `dp` int (5) NOT NULL DEFAULT 0,
-  `cardnumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `maineffect` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `sourceeffect` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `level` varchar(1) COLLATE utf8_unicode_ci NULL,
+  `playCost` varchar(2) COLLATE utf8_unicode_ci NULL,
+  `evolutioncost` varchar(1) COLLATE utf8_unicode_ci NULL,
+  `dp` varchar (5) COLLATE utf8_unicode_ci NULL,
+  `cardnumber` varchar(255) COLLATE utf8_unicode_ci NULL,
+  `maineffect` varchar(1000) COLLATE utf8_unicode_ci NULL,
+  `sourceeffect` varchar(1000) COLLATE utf8_unicode_ci NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

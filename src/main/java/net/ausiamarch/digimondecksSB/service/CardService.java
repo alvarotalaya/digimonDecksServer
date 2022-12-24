@@ -12,17 +12,18 @@ import javax.transaction.Transactional;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotFoundException;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
 import net.ausiamarch.digimondecksSB.exception.ValidationException;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.*;
 
 import net.ausiamarch.digimondecksSB.entity.CardEntity;
 import net.ausiamarch.digimondecksSB.exception.CannotPerformOperationException;
 import net.ausiamarch.digimondecksSB.helper.RandomHelper;
 import net.ausiamarch.digimondecksSB.helper.ValidationHelper;
 import net.ausiamarch.digimondecksSB.repository.CardRepository;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
 import org.springframework.data.domain.Page;
@@ -44,7 +45,7 @@ public class CardService {
         String[] colors = {"red", "blue", "yellow", "green", "black", "purple","white"};
 
         for(int i = 0; i < colors.length; i++){
-            URL url = new URL("https://digimoncard.io/api-public/search.php?color=" + colors[i] +"&series=Digimon");
+            URL url = new URL("https://digimoncard.io/api-public/search.php?color=" + colors[i] + "&series=Digimon Card Game");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.connect();
@@ -66,24 +67,117 @@ public class CardService {
                 scanner.close();
             
                 //Using the JSON simple library parse the string into a json object
-                JSONParser parse = new JSONParser();
-                JSONObject data_obj = (JSONObject) parse.parse(inline);
-            
-                //Get the required object from the above created object
-                JSONObject obj = (JSONObject) data_obj.get("Global");
-            
-                //Get the required data using its key
-                System.out.println(obj.get("TotalRecovered"));
+                JsonParser parser = new JsonParser();
+                JsonElement tradeElement = parser.parse(inline);
+                JsonArray cardarray = tradeElement.getAsJsonArray();
+                
+                for(int j = 0; j < cardarray.size(); j++){
+                    JsonObject card = cardarray.get(j).getAsJsonObject();
 
-                JSONArray arr = (JSONArray) data_obj.get("Countries");
+                    CardEntity oCardEntity = new CardEntity();
 
-                for (int j = 0; j < arr.size(); j++) {
+                    if(card.get("name").isJsonNull()){
+                        oCardEntity.setName(null);
+                    } else {
+                        System.out.println(card.get("name"));                        String name = card.get("name").getAsString();
+                        oCardEntity.setName(name);
+                    }
 
-                    JSONObject actualCard = (JSONObject) arr.get(i);
-                } 
+                    if(card.get("type").isJsonNull()){
+                        oCardEntity.setType(null);
+                    } else {
+                        String type = card.get("type").getAsString();
+                        oCardEntity.setType(type);
+                    }
+
+                    if(card.get("color").isJsonNull()){
+                        oCardEntity.setColor(null);
+                    } else {
+                        String color = card.get("color").getAsString();
+                        oCardEntity.setColor(color);
+                    }
+
+                    if(card.get("stage").isJsonNull()){
+                        oCardEntity.setStage(null);
+                    } else {
+                        String stage = card.get("stage").getAsString();
+                        oCardEntity.setStage(stage);
+                    }
+
+                    if(card.get("digi_type").isJsonNull()){
+                        oCardEntity.setDigitype(null);
+                    } else {
+                        String digitype = card.get("digi_type").getAsString();
+                        oCardEntity.setDigitype(digitype);
+                    }
+
+                    if(card.get("attribute").isJsonNull()){
+                        oCardEntity.setAttribute(null);
+                    } else {
+                        String attribute = card.get("attribute").getAsString();
+                        oCardEntity.setAttribute(attribute);
+                    }
+
+                    if(card.get("level").isJsonNull()){
+                        oCardEntity.setLevel(null);
+                    } else {
+                        String level = card.get("level").getAsString();
+                        oCardEntity.setLevel(level);
+                    }
+
+                    if(card.get("play_cost").isJsonNull()){
+                        oCardEntity.setPlaycost(null);
+                    } else {
+                        String playcost = card.get("play_cost").getAsString();
+                        oCardEntity.setPlaycost(playcost);
+                    }
+
+                    if(card.get("evolution_cost").isJsonNull()){
+                        oCardEntity.setEvolutioncost(null);
+                    } else {
+                        String evolutioncost = card.get("evolution_cost").getAsString();
+                        oCardEntity.setEvolutioncost(evolutioncost);
+                    }
+
+                    if(card.get("dp").isJsonNull()){
+                        oCardEntity.setDp(null);
+                    } else {
+                        String dp = card.get("dp").getAsString();
+                        oCardEntity.setDp(dp);
+                    }
+
+                    if(card.get("cardnumber").isJsonNull()){
+                        oCardEntity.setCardnumber(null);
+                    } else {
+                        String cardnumber = card.get("cardnumber").getAsString();
+                        oCardEntity.setCardnumber(cardnumber);
+                    }
+
+                    if(card.get("maineffect").isJsonNull()){
+                        oCardEntity.setMaineffect(null);
+                    } else {
+                        String maineffect = card.get("maineffect").getAsString();
+                        oCardEntity.setMaineffect(maineffect);
+                    }
+
+                    if(card.get("soureeffect").isJsonNull()){
+                        oCardEntity.setSourceeffect(null);
+                    } else {
+                        String sourceeffect = card.get("soureeffect").getAsString();
+                        oCardEntity.setSourceeffect(sourceeffect);
+                    }
+
+                    if(card.get("image_url").isJsonNull()){
+                        oCardEntity.setImage(null);
+                    } else {
+                        String image = card.get("image_url").getAsString();
+                        oCardEntity.setImage(image);
+                    }
+                    
+                    oCardRepository.save(oCardEntity);
+                }   
             }   
         }
-
         return oCardRepository.count();
     }
 

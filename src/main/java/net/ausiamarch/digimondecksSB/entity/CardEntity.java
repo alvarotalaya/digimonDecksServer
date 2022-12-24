@@ -25,10 +25,10 @@ public class CardEntity {
     String stage;
     String digitype;
     String attribute;
-    int level;
-    int playcost;
-    int evolution_cost;
-    int dp;
+    String level;
+    String playcost;
+    String evolutioncost;
+    String dp;
     String cardnumber;
     String maineffect;
     String sourceeffect;
@@ -77,28 +77,28 @@ public class CardEntity {
     public void setAttribute(String attribute) {
         this.attribute = attribute;
     }
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
-    public int getPlaycost() {
+    public String getPlaycost() {
         return playcost;
     }
-    public void setPlaycost(int playcost) {
+    public void setPlaycost(String playcost) {
         this.playcost = playcost;
     }
-    public int getEvolution_cost() {
-        return evolution_cost;
+    public String getEvolutioncost() {
+        return evolutioncost;
     }
-    public void setEvolution_cost(int evolution_cost) {
-        this.evolution_cost = evolution_cost;
+    public void setEvolutioncost(String evolutioncost) {
+        this.evolutioncost = evolutioncost;
     }
-    public int getDp() {
+    public String getDp() {
         return dp;
     }
-    public void setDp(int dp) {
+    public void setDp(String dp) {
         this.dp = dp;
     }
     public String getCardnumber() {

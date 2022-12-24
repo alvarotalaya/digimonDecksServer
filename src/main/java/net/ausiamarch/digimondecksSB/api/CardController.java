@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import net.ausiamarch.digimondecksSB.entity.CardEntity;
 import net.ausiamarch.digimondecksSB.service.CardService;
+import net.minidev.json.parser.ParseException;
+import java.io.IOException;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -28,7 +30,7 @@ public class CardController {
     CardService oCardService;
 
     @GetMapping("/getcards")
-    public ResponseEntity<Long> count() {
+    public ResponseEntity<Long> count() throws IOException, ParseException {
         return new ResponseEntity<Long>(oCardService.getAllCards(), HttpStatus.OK);
     }
 }
