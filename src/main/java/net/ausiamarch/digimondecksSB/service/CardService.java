@@ -39,9 +39,20 @@ public class CardService {
     @Autowired
     AuthService oAuthService;
 
-    public Long getAllCards() throws IOException, ParseException {
-        //oAuthService.OnlyAdmins();
+    public void validate(Long id) {
+        if (!oCardRepository.existsById(id)) {
+            throw new ResourceNotFoundException("id " + id + " not exist");
+        }
+    }
 
+    public void validate(CardEntity oCardEntity) {
+        if (oCardRepository.existsByCardnumber(oCardEntity.getCardnumber())) {
+            throw new ValidationException("este email ya se esta usando en otra cuenta");
+        }
+    }
+
+    public Long getAllCards() throws IOException, ParseException {
+        oAuthService.OnlyAdmins();
         String[] colors = {"red", "blue", "yellow", "green", "black", "purple","white"};
 
         for(int i = 0; i < colors.length; i++){
@@ -174,6 +185,7 @@ public class CardService {
                         oCardEntity.setImage(image);
                     }
                     
+                    validate(oCardEntity);
                     oCardRepository.save(oCardEntity);
                 }   
             }   
@@ -181,9 +193,51 @@ public class CardService {
         return oCardRepository.count();
     }
 
-/*
-https://digimoncard.io/api-public/search.php?color=red&series=Digimon Card Game
-*/
+    public CardEntity get(Long id) {
+        oAuthService.OnlyAdmins();
+        validate(id);
+        return oCardRepository.getById(id);
+    }
+
+    public Page<CardEntity> getPage(Pageable oPageable, String strFilter) {
+        oAuthService.OnlyAdmins();
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        if (strFilter == null || strFilter.length() == 0) {
+                return oCardRepository.findAll(oPageable);
+        } else {
+            return oCardRepository.findByNameIgnoreCase(strFilter, oPageable);
+        }
+     }
+
+    public Long count() {
+        oAuthService.OnlyAdmins();
+        return oCardRepository.count();
+    }
+
+    public Long update(CardEntity oCardEntity) {
+        validate(oCardEntity.getId());
+        oAuthService.OnlyAdmins();
+        return oCardRepository.save(oCardEntity).getId();
+    }
+
+    public Long create(CardEntity oNewCardEntity) {
+        oAuthService.OnlyAdmins();
+        validate(oNewCardEntity);
+        oNewCardEntity.setId(0L);
+
+        return oCardRepository.save(oNewCardEntity).getId();
+    }
+
+    public Long delete(Long id) {
+        oAuthService.OnlyAdmins();
+        validate(id);
+        oCardRepository.deleteById(id);
+        if (oCardRepository.existsById(id)) {
+            throw new ResourceNotModifiedException("can't remove register " + id);
+        } else {
+            return id;
+        }
+    }
 
 }
 

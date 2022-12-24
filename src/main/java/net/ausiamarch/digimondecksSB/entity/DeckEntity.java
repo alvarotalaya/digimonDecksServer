@@ -23,8 +23,16 @@ public class DeckEntity {
     @JoinColumn(name = "idplayer")
     private PlayerEntity player;
 
+    String name;
     String description;
     LocalDateTime lastUpdate;
+    
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     
     public Long getId() {
         return id;

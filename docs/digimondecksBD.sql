@@ -39,13 +39,18 @@ CREATE TABLE `card` (
   `image` varchar(255) COLLATE utf8_unicode_ci NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `card`
---
 
-INSERT INTO `card` (`id`, `name`, `color`, `cardType`, `level`, `playCost`, `evolutionCost`, `description`, `cardnumber`, `image`) VALUES
-(1, 'Agumon', 'red', 'Digimon', 3, 3, 0, '[On Play] Reveal 5 cards from the top of your deck. Add 1 Tamer card among them to your hand. Place the remaining cards at the bottom of your deck in any order.', 
-    'BT1-010', 'imagen');
+--
+-- Indices de la tabla `card`
+--
+ALTER TABLE `card`
+  ADD PRIMARY KEY (`id`);
+  
+--
+-- AUTO_INCREMENT de la tabla `card`
+--
+ALTER TABLE `card`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -56,6 +61,7 @@ INSERT INTO `card` (`id`, `name`, `color`, `cardType`, `level`, `playCost`, `evo
 CREATE TABLE `deck` (
   `id` bigint(20) NOT NULL,
   `idPlayer` bigint(20) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastUpdate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -134,12 +140,6 @@ INSERT INTO `usertype` (`id`, `type`) VALUES
 --
 
 --
--- Indices de la tabla `card`
---
-ALTER TABLE `card`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `deck`
 --
 ALTER TABLE `deck`
@@ -160,12 +160,6 @@ ALTER TABLE `player`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `card`
---
-ALTER TABLE `card`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `deck`

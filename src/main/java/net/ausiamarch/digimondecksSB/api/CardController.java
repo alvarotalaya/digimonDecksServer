@@ -30,7 +30,40 @@ public class CardController {
     CardService oCardService;
 
     @GetMapping("/getcards")
-    public ResponseEntity<Long> count() throws IOException, ParseException {
+    public ResponseEntity<Long> getAllCards() throws IOException, ParseException {
         return new ResponseEntity<Long>(oCardService.getAllCards(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CardEntity> get(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<CardEntity>(oCardService.get(id), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CardEntity>> getPage(
+            @ParameterObject @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable oPageable,
+            @RequestParam(name = "filter", required = false) String strFilter) {
+        return new ResponseEntity<>(oCardService.getPage(oPageable, strFilter), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> count() {
+        return new ResponseEntity<Long>(oCardService.count(), HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Long> update(@RequestBody CardEntity oCardEntity) {
+        return new ResponseEntity<Long>(oCardService.update(oCardEntity), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Long> create(@RequestBody CardEntity oNewCardEntity) {
+        return new ResponseEntity<Long>(oCardService.create(oNewCardEntity), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> delete(@PathVariable(value = "id") Long id) {
+        return new ResponseEntity<Long>(oCardService.delete(id), HttpStatus.OK);
+    }
+
 }
