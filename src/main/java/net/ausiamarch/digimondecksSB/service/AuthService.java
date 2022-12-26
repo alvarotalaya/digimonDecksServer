@@ -34,14 +34,9 @@ package net.ausiamarch.digimondecksSB.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import net.ausiamarch.digimondecksSB.bean.CaptchaBean;
-import net.ausiamarch.digimondecksSB.bean.CaptchaResponse;
 import net.ausiamarch.digimondecksSB.bean.PlayerBean;
 import net.ausiamarch.digimondecksSB.exception.UnauthorizedException;
 import net.ausiamarch.digimondecksSB.entity.PlayerEntity;
-import net.ausiamarch.digimondecksSB.helper.JwtHelper;
-import net.ausiamarch.digimondecksSB.helper.RandomHelper;
 import net.ausiamarch.digimondecksSB.helper.UsertypeHelper;
 import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

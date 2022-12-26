@@ -32,14 +32,9 @@
  */
 package net.ausiamarch.digimondecksSB.api;
 
-import javax.servlet.http.HttpSession;
-import net.ausiamarch.digimondecksSB.bean.CaptchaBean;
-import net.ausiamarch.digimondecksSB.bean.CaptchaResponse;
 import net.ausiamarch.digimondecksSB.bean.PlayerBean;
 import net.ausiamarch.digimondecksSB.entity.PlayerEntity;
-import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 import net.ausiamarch.digimondecksSB.service.AuthService;
-import net.ausiamarch.digimondecksSB.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

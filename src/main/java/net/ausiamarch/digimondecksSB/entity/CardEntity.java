@@ -1,13 +1,14 @@
 package net.ausiamarch.digimondecksSB.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,22 @@ public class CardEntity {
     String maineffect;
     String sourceeffect;
     String image;
+
+    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+    private final List<CardDeckEntity> carddecks;
+
+    public CardEntity() {
+        this.carddecks = new ArrayList<>();
+    }
+
+    public CardEntity(Long id) {
+        this.carddecks = new ArrayList<>();
+        this.id = id;
+    }
+
+    public int getCarddecks() {
+        return carddecks.size();
+    }
 
     public Long getId() {
         return id;

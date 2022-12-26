@@ -2,17 +2,12 @@ package net.ausiamarch.digimondecksSB.service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import javax.transaction.Transactional;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotFoundException;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
 import net.ausiamarch.digimondecksSB.exception.ValidationException;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +15,11 @@ import org.springframework.stereotype.Service;
 import com.google.gson.*;
 
 import net.ausiamarch.digimondecksSB.entity.CardEntity;
-import net.ausiamarch.digimondecksSB.exception.CannotPerformOperationException;
-import net.ausiamarch.digimondecksSB.helper.RandomHelper;
 import net.ausiamarch.digimondecksSB.helper.ValidationHelper;
 import net.ausiamarch.digimondecksSB.repository.CardRepository;
 import net.minidev.json.parser.ParseException;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @Service
