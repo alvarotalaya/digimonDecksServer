@@ -39,7 +39,7 @@ public class CardService {
 
     public void validate(CardEntity oCardEntity) {
         if (oCardRepository.existsByCardnumber(oCardEntity.getCardnumber())) {
-            throw new ValidationException("este email ya se esta usando en otra cuenta");
+            throw new ValidationException("this card already exists");
         }
     }
 
@@ -78,6 +78,17 @@ public class CardService {
                     JsonObject card = cardarray.get(j).getAsJsonObject();
 
                     CardEntity oCardEntity = new CardEntity();
+                    
+                    if(card.get("cardnumber").isJsonNull()){
+                        oCardEntity.setCardnumber(null);
+                    } else {
+                        String cardnumber = card.get("cardnumber").getAsString();
+                        oCardEntity.setCardnumber(cardnumber);
+                    }
+
+                    if (oCardRepository.existsByCardnumber(oCardEntity.getCardnumber())) {
+                        break;
+                    }
 
                     if(card.get("name").isJsonNull()){
                         oCardEntity.setName(null);
@@ -149,13 +160,6 @@ public class CardService {
                         oCardEntity.setDp(dp);
                     }
 
-                    if(card.get("cardnumber").isJsonNull()){
-                        oCardEntity.setCardnumber(null);
-                    } else {
-                        String cardnumber = card.get("cardnumber").getAsString();
-                        oCardEntity.setCardnumber(cardnumber);
-                    }
-
                     if(card.get("maineffect").isJsonNull()){
                         oCardEntity.setMaineffect(null);
                     } else {
@@ -177,7 +181,6 @@ public class CardService {
                         oCardEntity.setImage(image);
                     }
                     
-                    validate(oCardEntity);
                     oCardRepository.save(oCardEntity);
                 }   
             }   

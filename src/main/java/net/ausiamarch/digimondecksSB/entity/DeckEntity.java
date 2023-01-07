@@ -29,9 +29,9 @@ public class DeckEntity {
 
     String name;
     String description;
-    LocalDateTime lastUpdate;
+    LocalDateTime lastupdate;
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "deck", fetch = FetchType.LAZY)
     private final List<CardDeckEntity> carddecks;
 
     public DeckEntity() {
@@ -50,6 +50,7 @@ public class DeckEntity {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -57,27 +58,30 @@ public class DeckEntity {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
     public PlayerEntity getPlayer() {
         return player;
     }
+
     public void setPlayer(PlayerEntity player) {
         this.player = player;
     }
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
-    public LocalDateTime getLastUpdate() {
-        return lastUpdate;
-    }
-    public void setLastUpdate(LocalDateTime lastUpdate) {
-        this.lastUpdate = lastUpdate;
+
+    public LocalDateTime getLastupdate() {
+        return lastupdate;
     }
 
-    
+    public void setLastUpdate(LocalDateTime lastupdate) {
+        this.lastupdate = lastupdate;
+    }
 }

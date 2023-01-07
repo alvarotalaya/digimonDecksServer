@@ -63,7 +63,6 @@ public class CarddeckService {
                     return oCarddeckRepository.findByCardIdAndDeckId(card, deck, oPageable);
                 }
             }
-            
             return oCarddeckRepository.findByCardId(card, oPageable);
         }
     }

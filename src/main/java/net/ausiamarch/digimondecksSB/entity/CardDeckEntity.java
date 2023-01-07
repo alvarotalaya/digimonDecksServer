@@ -24,10 +24,9 @@ public class CardDeckEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "iddeck")
-
-    int copies;
-
     private DeckEntity deck;
+    
+    int copies;
 
     public Long getId() {
         return id;

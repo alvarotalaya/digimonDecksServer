@@ -42,6 +42,11 @@ public class PlayerEntity {
         this.decks = new ArrayList<>();
     }
 
+    public PlayerEntity(Long id) {
+        this.decks = new ArrayList<>();
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -80,11 +85,6 @@ public class PlayerEntity {
 
     public void setUsertype(UsertypeEntity usertype) {
         this.usertype = usertype;
-    }
-
-    public PlayerEntity(Long id) {
-        this.decks = new ArrayList<>();
-        this.id = id;
     }
 
     public int getDecks() {

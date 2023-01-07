@@ -1,0 +1,19 @@
+Card
+Admin: can do everything but the idea is not create cards althought import then from the api
+User: only see the cards
+Without session: only see the cards
+
+Deck
+Admin: everything
+User: can create and delete his decks but can see all the decks
+Without session: only see the decks
+
+Player
+Admin: everything
+User: see his own information
+Without session: create a User
+
+Usertype
+Admin: everything
+User: nothing
+Without session: nothing

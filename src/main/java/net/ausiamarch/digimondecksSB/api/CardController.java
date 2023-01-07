@@ -29,6 +29,7 @@ public class CardController {
     @Autowired
     CardService oCardService;
 
+    //import the cards from the api Digimon TCG API
     @GetMapping("/getcards")
     public ResponseEntity<Long> getAllCards() throws IOException, ParseException {
         return new ResponseEntity<Long>(oCardService.getAllCards(), HttpStatus.OK);

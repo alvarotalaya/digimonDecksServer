@@ -75,6 +75,8 @@ public class DeckService {
     public Long update(DeckEntity oDeckEntity) {
         validate(oDeckEntity.getId());
         oAuthService.OnlyAdmins();
+        DeckEntity oOldDeckEntity=oDeckRepository.getById(oDeckEntity.getId());
+        oDeckEntity.setPlayer(oOldDeckEntity.getPlayer());
         oDeckEntity.setLastUpdate(LocalDateTime.now());
         return oDeckRepository.save(oDeckEntity).getId();
     }

@@ -6,7 +6,6 @@ import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
 import net.ausiamarch.digimondecksSB.helper.ValidationHelper;
 import net.ausiamarch.digimondecksSB.exception.ValidationException;
 import net.ausiamarch.digimondecksSB.repository.UsertypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,6 @@ public class UsertypeService {
     private final UsertypeRepository oUsertypeRepository;
     private final AuthService oAuthService;
 
-    @Autowired
     public UsertypeService(UsertypeRepository oUsertypeRepository, AuthService oAuthService) {
         this.oUsertypeRepository = oUsertypeRepository;
         this.oAuthService = oAuthService;
