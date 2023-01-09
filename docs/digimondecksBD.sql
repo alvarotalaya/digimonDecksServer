@@ -62,7 +62,7 @@ CREATE TABLE `deck` (
   `id` bigint(20) NOT NULL,
   `idPlayer` bigint(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NULL,
   `lastUpdate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

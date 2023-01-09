@@ -1,7 +1,9 @@
 package net.ausiamarch.digimondecksSB.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotFoundException;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
@@ -77,14 +79,16 @@ public class DeckService {
         oAuthService.OnlyAdmins();
         DeckEntity oOldDeckEntity=oDeckRepository.getById(oDeckEntity.getId());
         oDeckEntity.setPlayer(oOldDeckEntity.getPlayer());
-        oDeckEntity.setLastUpdate(LocalDateTime.now());
+        Date date = new Date();
+        oDeckEntity.setLastUpdate(date);
         return oDeckRepository.save(oDeckEntity).getId();
     }
 
     public Long create(DeckEntity oNewDeckEntity) {
         oAuthService.OnlyAdmins();
         validate(oNewDeckEntity);
-        oNewDeckEntity.setLastUpdate(LocalDateTime.now());
+        Date date = new Date();
+        oNewDeckEntity.setLastUpdate(date);
         oNewDeckEntity.setId(0L);
 
         return oDeckRepository.save(oNewDeckEntity).getId();
@@ -106,7 +110,8 @@ public class DeckService {
 
         oDeckEntity.setName(names.get(RandomHelper.getRandomInt(0, names.size() - 1)));
         oDeckEntity.setDescription(null);
-        oDeckEntity.setLastUpdate(LocalDateTime.now());
+        oDeckEntity.setLastUpdate(RandomHelper.getRadomDate());
+        
         int totalPlayers = (int) oPlayerRepository.count();
         int randomUserTypeId = RandomHelper.getRandomInt(1, totalPlayers);
         oPlayerRepository.findById((long) randomUserTypeId)

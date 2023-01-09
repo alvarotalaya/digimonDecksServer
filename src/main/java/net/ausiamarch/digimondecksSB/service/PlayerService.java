@@ -116,6 +116,7 @@ public class PlayerService {
         oPlayerEntity.setName(names.get(RandomHelper.getRandomInt(0, names.size() - 1)));
         oPlayerEntity.setPassword(DIGIMON_DEFAULT_PASSWORD);
         oPlayerEntity.setEmail(RandomHelper.getRandomInt(0, 999999) + "@test.com");
+        
         int totalUsertypes = (int) oUsertypeRepository.count();
         int randomUserTypeId = RandomHelper.getRandomInt(1, totalUsertypes);
         oUsertypeRepository.findById((long) randomUserTypeId)

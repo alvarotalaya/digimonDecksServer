@@ -2,6 +2,7 @@ package net.ausiamarch.digimondecksSB.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class DeckEntity {
 
     String name;
     String description;
-    LocalDateTime lastupdate;
+    Date lastupdate;
 
     @OneToMany(mappedBy = "deck", fetch = FetchType.LAZY)
     private final List<CardDeckEntity> carddecks;
@@ -77,11 +78,11 @@ public class DeckEntity {
         this.description = description;
     }
 
-    public LocalDateTime getLastupdate() {
+    public Date getLastupdate() {
         return lastupdate;
     }
 
-    public void setLastUpdate(LocalDateTime lastupdate) {
+    public void setLastUpdate(Date lastupdate) {
         this.lastupdate = lastupdate;
     }
 }
