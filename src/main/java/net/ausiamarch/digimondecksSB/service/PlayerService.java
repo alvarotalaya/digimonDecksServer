@@ -69,9 +69,11 @@ public class PlayerService {
             }
         } else {
             if (id_usertype == null) {
-                return oPlayerRepository.findByNameIgnoreCase(strFilter, oPageable);
+                return oPlayerRepository.findByNameIgnoreCaseContainingOrEmailIgnoreCaseContaining(
+                    strFilter, strFilter, oPageable);
             } else {
-                return oPlayerRepository.findByNameIgnoreCaseAndUsertypeId(strFilter, id_usertype, oPageable);
+                return oPlayerRepository.findByNameIgnoreCaseContainingOrEmailIgnoreCaseContainingAndUsertypeId(
+                    strFilter, strFilter, id_usertype, oPageable);
             }
         }
      }

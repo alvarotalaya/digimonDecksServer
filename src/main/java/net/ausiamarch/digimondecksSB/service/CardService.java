@@ -5,6 +5,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import javax.validation.constraints.Null;
+
 import net.ausiamarch.digimondecksSB.exception.ResourceNotFoundException;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
 import net.ausiamarch.digimondecksSB.exception.ValidationException;
@@ -93,7 +95,7 @@ public class CardService {
                     if(card.get("name").isJsonNull()){
                         oCardEntity.setName(null);
                     } else {
-                        System.out.println(card.get("name"));                        String name = card.get("name").getAsString();
+                        String name = card.get("name").getAsString();
                         oCardEntity.setName(name);
                     }
 
@@ -135,28 +137,28 @@ public class CardService {
                     if(card.get("level").isJsonNull()){
                         oCardEntity.setLevel(null);
                     } else {
-                        String level = card.get("level").getAsString();
+                        Long level = card.get("level").getAsLong();
                         oCardEntity.setLevel(level);
                     }
 
                     if(card.get("play_cost").isJsonNull()){
                         oCardEntity.setPlaycost(null);
                     } else {
-                        String playcost = card.get("play_cost").getAsString();
+                        Long playcost = card.get("play_cost").getAsLong();
                         oCardEntity.setPlaycost(playcost);
                     }
 
                     if(card.get("evolution_cost").isJsonNull()){
                         oCardEntity.setEvolutioncost(null);
                     } else {
-                        String evolutioncost = card.get("evolution_cost").getAsString();
+                        Long evolutioncost = card.get("evolution_cost").getAsLong();
                         oCardEntity.setEvolutioncost(evolutioncost);
                     }
 
                     if(card.get("dp").isJsonNull()){
                         oCardEntity.setDp(null);
                     } else {
-                        String dp = card.get("dp").getAsString();
+                        Long dp = card.get("dp").getAsLong();
                         oCardEntity.setDp(dp);
                     }
 
@@ -200,7 +202,8 @@ public class CardService {
         if (strFilter == null || strFilter.length() == 0) {
                 return oCardRepository.findAll(oPageable);
         } else {
-            return oCardRepository.findByNameIgnoreCase(strFilter, oPageable);
+            return oCardRepository.findByNameIgnoreCaseContainingOrTypeIgnoreCaseContainingOrColorIgnoreCaseOrDigitypeIgnoreCaseContainingOrAttributeIgnoreCaseContainingOrCardnumberIgnoreCaseContainingOrMaineffectIgnoreCaseContainingOrSourceeffectIgnoreCaseContaining(
+                strFilter, strFilter, strFilter, strFilter, strFilter, strFilter, strFilter, strFilter,oPageable);
         }
      }
 

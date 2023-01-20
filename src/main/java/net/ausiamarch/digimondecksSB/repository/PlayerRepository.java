@@ -16,8 +16,8 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     Page<PlayerEntity> findByUsertypeId(Long id_usertype, Pageable oPageable);
 
-    Page<PlayerEntity> findByNameIgnoreCase(String strFilterName, Pageable oPageable);
+    Page<PlayerEntity> findByNameIgnoreCaseContainingOrEmailIgnoreCaseContaining(String strFilterName, String strFilterEmail, Pageable oPageable);
 
-    Page<PlayerEntity> findByNameIgnoreCaseAndUsertypeId(String strFilterName, Long id_usertype, Pageable oPageable);
+    Page<PlayerEntity> findByNameIgnoreCaseContainingOrEmailIgnoreCaseContainingAndUsertypeId(String strFilterName, String strFilterEmail, Long id_usertype, Pageable oPageable);
     
 }

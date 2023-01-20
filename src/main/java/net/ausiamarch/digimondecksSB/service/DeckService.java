@@ -62,9 +62,9 @@ public class DeckService {
             }
         } else {
             if (player == null) {
-                return oDeckRepository.findByNameIgnoreCase(strFilter, oPageable);
+                return oDeckRepository.findByNameIgnoreCaseContaining(strFilter, oPageable);
             } else {
-                return oDeckRepository.findByNameIgnoreCaseAndPlayerId(strFilter, player, oPageable);
+                return oDeckRepository.findByNameIgnoreCaseContainingAndPlayerId(strFilter, player, oPageable);
             }
         }
      }

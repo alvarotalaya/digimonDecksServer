@@ -17,3 +17,26 @@ Usertype
 Admin: everything
 User: nothing
 Without session: nothing
+
+setPage del plist
+limpiar el stage al generar las cartas
+
+limpiar cada carta despues de guardarla ?
+recargar al login y logout
+evitar que user pueda entrar a paginas que no puede
+mirar los getPage (no se puede filtrar con Long)
+
+
+MAS
+Buscar por texto y efecto
+Manos de prueba y stats (cartas por nivel y color)
+Criterios de ordenación
+Imagenes con calidad
+Ampliar cartas
+Buscador 
+Compartir decks
+Ejemplos
+Buscar por expansion
+Mazos populares 
+Todos los alters
+Link a cardmarket

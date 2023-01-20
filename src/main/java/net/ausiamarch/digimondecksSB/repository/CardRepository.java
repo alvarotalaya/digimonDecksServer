@@ -10,5 +10,6 @@ public interface CardRepository extends JpaRepository<CardEntity, Long> {
 
     boolean existsByCardnumber(String cardnumber);
 
-    Page<CardEntity> findByNameIgnoreCase(String strFilterName, Pageable oPageable);
+    Page<CardEntity> findByNameIgnoreCaseContainingOrTypeIgnoreCaseContainingOrColorIgnoreCaseOrDigitypeIgnoreCaseContainingOrAttributeIgnoreCaseContainingOrCardnumberIgnoreCaseContainingOrMaineffectIgnoreCaseContainingOrSourceeffectIgnoreCaseContaining(
+        String strFilterName, String strFilterType, String strFilterColor, String strFilterDigitype, String strFilterAttibute, String strFilterCardnumber, String strFilterMaineffect, String strFilterSourceeffect, Pageable oPageable);
 }

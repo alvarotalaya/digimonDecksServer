@@ -10,7 +10,7 @@ public interface DeckRepository extends JpaRepository<DeckEntity, Long>{
     
     Page<DeckEntity> findByPlayerId(Long id_player, Pageable oPageable);
 
-    Page<DeckEntity> findByNameIgnoreCase(String strFilterName, Pageable oPageable);
+    Page<DeckEntity> findByNameIgnoreCaseContaining(String strFilterName, Pageable oPageable);
 
-    Page<DeckEntity> findByNameIgnoreCaseAndPlayerId(String strFilterName, Long id_player, Pageable oPageable);
+    Page<DeckEntity> findByNameIgnoreCaseContainingAndPlayerId(String strFilterName, Long id_player, Pageable oPageable);
 }
