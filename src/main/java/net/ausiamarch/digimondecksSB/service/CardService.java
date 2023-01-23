@@ -13,6 +13,7 @@ import net.ausiamarch.digimondecksSB.exception.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 import com.google.gson.*;
 
@@ -80,6 +81,8 @@ public class CardService {
                     JsonObject card = cardarray.get(j).getAsJsonObject();
 
                     CardEntity oCardEntity = new CardEntity();
+
+                    String name = "";
                     
                     if(card.get("cardnumber").isJsonNull()){
                         oCardEntity.setCardnumber(null);
@@ -95,7 +98,7 @@ public class CardService {
                     if(card.get("name").isJsonNull()){
                         oCardEntity.setName(null);
                     } else {
-                        String name = card.get("name").getAsString();
+                        name = card.get("name").getAsString();
                         oCardEntity.setName(name);
                     }
 
@@ -117,7 +120,11 @@ public class CardService {
                         oCardEntity.setStage(null);
                     } else {
                         String stage = card.get("stage").getAsString();
-                        oCardEntity.setStage(stage);
+                        if (name.equals("Koji Minamoto")){
+                            oCardEntity.setStage(null);
+                        } else {
+                            oCardEntity.setStage(stage);
+                        }
                     }
 
                     if(card.get("digi_type").isJsonNull()){
@@ -166,14 +173,14 @@ public class CardService {
                         oCardEntity.setMaineffect(null);
                     } else {
                         String maineffect = card.get("maineffect").getAsString();
-                        oCardEntity.setMaineffect(maineffect);
+                        oCardEntity.setMaineffect(filterChar(maineffect));
                     }
 
                     if(card.get("soureeffect").isJsonNull()){
                         oCardEntity.setSourceeffect(null);
                     } else {
                         String sourceeffect = card.get("soureeffect").getAsString();
-                        oCardEntity.setSourceeffect(sourceeffect);
+                        oCardEntity.setSourceeffect(filterChar(sourceeffect));
                     }
 
                     if(card.get("image_url").isJsonNull()){
@@ -188,6 +195,13 @@ public class CardService {
             }   
         }
         return oCardRepository.count();
+    }
+
+    public String filterChar(String text){
+        String text1 = text.replace("&lt;", "<");
+        String text2 = text1.replace("&gt;", ">");
+        String text3 = text2.replace("&#91;", "[");
+        return text3;
     }
 
     public CardEntity get(Long id) {
