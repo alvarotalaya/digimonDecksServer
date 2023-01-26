@@ -13,14 +13,16 @@ import net.ausiamarch.digimondecksSB.exception.JWTException;
 
 public class JwtHelper {
 
-    private static final String SECRET = "HOLAHOLAasdfghjklHOLAHOLA";
-    private static final String ISSUER = "ticTOKEN";
+    private static final String SECRET = "HOLAHOLAasdfghjkgdfgfglHOLkjhkjAHOLA";
+    private static final String ISSUER = "digimon";
+    private static final String CLAIMER = "player";
+
 
     private static SecretKey secretKey() {
         return Keys.hmacShaKeyFor((SECRET + ISSUER + SECRET).getBytes());
     }
 
-    public static String generateJWT(String email) {
+    public static String generateJWT(String player) {
 
         Date currentTime = Date.from(Instant.now());
         Date expiryTime = Date.from(Instant.now().plus(Duration.ofSeconds(9600)));
@@ -30,7 +32,7 @@ public class JwtHelper {
                .setIssuer(ISSUER)
                .setIssuedAt(currentTime)
                .setExpiration(expiryTime)
-               .claim("email", email)
+               .claim(CLAIMER, player)
                .signWith(secretKey())
                .compact();
     }
@@ -45,6 +47,6 @@ public class JwtHelper {
         if (!claims.getIssuer().equals(ISSUER)) {
             throw new JWTException("Error validating JWT");
         }
-        return claims.get("email", String.class);
+        return claims.get(CLAIMER, String.class);
     }
 }

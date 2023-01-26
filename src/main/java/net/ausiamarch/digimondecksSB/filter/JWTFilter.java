@@ -9,8 +9,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.ausiamarch.digimondecksSB.helper.JwtHelper;
+import org.springframework.stereotype.Component;
 
+import net.ausiamarch.digimondecksSB.helper.JwtHelper;
+@Component
 public class JWTFilter implements Filter {
 
     @Override
@@ -27,6 +29,9 @@ public class JWTFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             if (auth == null || !auth.startsWith("Bearer ")) {
+
+                //NO ESTA EL TOKEN
+                
             } else {
                 String token = auth.substring(7);
                 try {

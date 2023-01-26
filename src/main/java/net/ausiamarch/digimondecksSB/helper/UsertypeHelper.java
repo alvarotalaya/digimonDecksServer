@@ -35,7 +35,7 @@ package net.ausiamarch.digimondecksSB.helper;
 public class UsertypeHelper {
 
     public static final Long ADMIN = 1L;
-    public static final Long USER = 2L; 
+    public static final Long PLAYER = 2L; 
       
 
 }

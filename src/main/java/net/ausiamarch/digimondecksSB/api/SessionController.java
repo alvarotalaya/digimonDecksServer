@@ -38,7 +38,6 @@ import net.ausiamarch.digimondecksSB.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,23 +56,9 @@ public class SessionController {
     }
 
     @PostMapping
-    public ResponseEntity<PlayerEntity> login(@org.springframework.web.bind.annotation.RequestBody PlayerBean oPlayerBean) {
-        return new ResponseEntity<PlayerEntity>(oAuthService.login(oPlayerBean), HttpStatus.OK);
-    }
-
-//    @PostMapping(produces = "application/json", consumes = "application/json")
-//    public ResponseEntity<PlayerEntity> login(
-//            @org.springframework.web.bind.annotation.RequestBody // Spring
-//            @io.swagger.v3.oas.annotations.parameters.RequestBody // Swagger
-//            @Valid // Bean validation to ensure if the incoming object is valid
-//            final PlayerBean oPlayerBean ) //            @RequestBody(description = "login endpoint", required = true, content = @Content(schema = @Schema(implementation = PlayerEntity.class))) PlayerBean oPlayerBean) ,
-//    {
-//        return new ResponseEntity<PlayerEntity>(oAuthService.login(oPlayerBean), HttpStatus.OK);
-//    }
-    @DeleteMapping("")
-    public ResponseEntity<?> logout() {
-        oAuthService.logout();
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<String> login(@org.springframework.web.bind.annotation.RequestBody PlayerBean oPlayerBean) {
+        return new ResponseEntity<String>("\"" + oAuthService.login(oPlayerBean) + "\"", HttpStatus.OK);
     }
 
 }
+

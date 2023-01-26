@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import net.ausiamarch.digimondecksSB.bean.PlayerBean;
 import net.ausiamarch.digimondecksSB.exception.UnauthorizedException;
 import net.ausiamarch.digimondecksSB.entity.PlayerEntity;
+import net.ausiamarch.digimondecksSB.helper.JwtHelper;
 import net.ausiamarch.digimondecksSB.helper.UsertypeHelper;
 import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +56,11 @@ public class AuthService {
     @Autowired
     HttpSession oHttpSession;
 
-
-    public PlayerEntity login(@RequestBody PlayerBean oPlayerBean) {
+    public String login(@RequestBody PlayerBean oPlayerBean) {
         if (oPlayerBean.getPassword() != null) {
             PlayerEntity oPlayerEntity = oPlayerRepository.findByEmailAndPassword(oPlayerBean.getEmail(), oPlayerBean.getPassword());
             if (oPlayerEntity != null) {
-                oHttpSession.setAttribute("player", oPlayerEntity);
-                return oPlayerEntity;
+                return JwtHelper.generateJWT(oPlayerBean.getEmail());
             } else {
                 throw new UnauthorizedException("email or password incorrect");
             }
@@ -70,39 +69,18 @@ public class AuthService {
         }
     }
 
-    public void logout() {
-        oHttpSession.invalidate();
-    }
-
     public PlayerEntity check() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity != null) {
-            return oPlayerSessionEntity;
+        String strPlayer = (String) oRequest.getAttribute("player");
+        if (strPlayer != null) {
+            PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+            return oPlayerEntity;
         } else {
-            throw new UnauthorizedException("no active session");
-        }
-    }
-
-    public boolean isLoggedIn() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public Long getUserID() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity != null) {
-            return oPlayerSessionEntity.getId();
-        } else {
-            throw new UnauthorizedException("this request is only allowed to auth users");
+            throw new UnauthorizedException("No active session");
         }
     }
 
     public boolean isAdmin() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
+        PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String) oRequest.getAttribute("player"));
         if (oPlayerSessionEntity != null) {
             if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
                 return true;
@@ -111,57 +89,90 @@ public class AuthService {
         return false;
     }
 
-    public boolean isUser() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity != null) {
-            if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.USER)) {
+    public void OnlyAdmins() {
+        PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String) oRequest.getAttribute("player"));
+        if (oPlayerSessionEntity == null) {
+            throw new UnauthorizedException("this request is only allowed to admin role");
+        } else {
+            if (!oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
+                throw new UnauthorizedException("this request is only allowed to admin role");
+            }
+        }
+    }
+
+    public boolean isLoggedIn() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        if (strPlayer == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Long getUserID() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity != null) {
+            return oPlayerEntity.getId();
+        } else {
+            throw new UnauthorizedException("this request is only allowed to auth Players");
+        }
+    }
+
+
+    public boolean isPlayer() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity != null) {
+            if (oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void OnlyAdmins() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity == null) {
-            throw new UnauthorizedException("this request is only 1 to admin role");
+    public void OnlyPlayers() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity == null) {
+            throw new UnauthorizedException("this request is only allowed to Player role");
         } else {
-            if (!oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
-                throw new UnauthorizedException("this request is only 2 to admin role");
+            if (!oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
+                throw new UnauthorizedException("this request is only allowed to Player role");
             }
         }
     }
 
-    public void OnlyUsers() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity == null) {
-            throw new UnauthorizedException("this request is only allowed to user role");
+    public void OnlyAdminsOrReviewers() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity == null) {
+            throw new UnauthorizedException("this request is only allowed to admin or reviewer role");
         } else {
-            if (!oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.USER)) {
-                throw new UnauthorizedException("this request is only allowed to user role");
-            }
-        }
-    }
-
-    public void OnlyAdminsOrUsers() {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity == null) {
-            throw new UnauthorizedException("this request is only allowed to user or admin role");
-        } else {
-
-        }
-    }
-
-    public void OnlyAdminsOrOwnUsersData(Long id) {
-        PlayerEntity oPlayerSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oPlayerSessionEntity != null) {
-            if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.USER)) {
-                if (!oPlayerSessionEntity.getId().equals(id)) {
-                    throw new UnauthorizedException("this request is only allowed for your own data");
+            if (oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
+            } else {
+                if (oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
+                } else {
+                    throw new UnauthorizedException("this request is only allowed to admin or reviewer role");
                 }
             }
-        } else {
-            throw new UnauthorizedException("this request is only allowed to user or admin role");
         }
     }
+
+    public void OnlyOwnPlayersData(Long id) {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity != null) {
+            if (oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
+                if (!oPlayerEntity.getId().equals(id)) {
+                    throw new UnauthorizedException("this request is only allowed for your own Player data");
+                }
+            } else {
+                throw new UnauthorizedException("this request is only allowed to Player role");
+            }
+        } else {
+            throw new UnauthorizedException("this request is only allowed to Player role");
+        }
+    }
+
 }
