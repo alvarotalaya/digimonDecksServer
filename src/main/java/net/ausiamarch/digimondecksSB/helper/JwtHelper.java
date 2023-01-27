@@ -16,13 +16,14 @@ public class JwtHelper {
     private static final String SECRET = "HOLAHOLAasdfghjkgdfgfglHOLkjhkjAHOLA";
     private static final String ISSUER = "digimon";
     private static final String CLAIMER = "player";
+    private static final String USERTYPE = "usertype";
 
 
     private static SecretKey secretKey() {
         return Keys.hmacShaKeyFor((SECRET + ISSUER + SECRET).getBytes());
     }
 
-    public static String generateJWT(String player) {
+    public static String generateJWT(String player, long usertype) {
 
         Date currentTime = Date.from(Instant.now());
         Date expiryTime = Date.from(Instant.now().plus(Duration.ofSeconds(9600)));
@@ -33,6 +34,7 @@ public class JwtHelper {
                .setIssuedAt(currentTime)
                .setExpiration(expiryTime)
                .claim(CLAIMER, player)
+               .claim(USERTYPE, usertype)
                .signWith(secretKey())
                .compact();
     }

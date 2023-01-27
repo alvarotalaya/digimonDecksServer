@@ -60,7 +60,8 @@ public class AuthService {
         if (oPlayerBean.getPassword() != null) {
             PlayerEntity oPlayerEntity = oPlayerRepository.findByEmailAndPassword(oPlayerBean.getEmail(), oPlayerBean.getPassword());
             if (oPlayerEntity != null) {
-                return JwtHelper.generateJWT(oPlayerBean.getEmail());
+                System.out.println(oPlayerEntity);
+                return JwtHelper.generateJWT(oPlayerBean.getEmail(), oPlayerEntity.getUsertype().getId());
             } else {
                 throw new UnauthorizedException("email or password incorrect");
             }

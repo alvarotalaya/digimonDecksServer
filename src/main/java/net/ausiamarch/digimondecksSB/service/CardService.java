@@ -82,7 +82,7 @@ public class CardService {
 
                     CardEntity oCardEntity = new CardEntity();
 
-                    String name = "";
+                    String type = "";
                     
                     if(card.get("cardnumber").isJsonNull()){
                         oCardEntity.setCardnumber(null);
@@ -98,14 +98,14 @@ public class CardService {
                     if(card.get("name").isJsonNull()){
                         oCardEntity.setName(null);
                     } else {
-                        name = card.get("name").getAsString();
+                        String name = card.get("name").getAsString();
                         oCardEntity.setName(name);
                     }
 
                     if(card.get("type").isJsonNull()){
                         oCardEntity.setType(null);
                     } else {
-                        String type = card.get("type").getAsString();
+                        type = card.get("type").getAsString();
                         oCardEntity.setType(type);
                     }
 
@@ -120,7 +120,7 @@ public class CardService {
                         oCardEntity.setStage(null);
                     } else {
                         String stage = card.get("stage").getAsString();
-                        if (name.equals("Koji Minamoto")){
+                        if (type.equals("Tamer")){
                             oCardEntity.setStage(null);
                         } else {
                             oCardEntity.setStage(stage);

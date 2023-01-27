@@ -18,8 +18,7 @@ Admin: everything
 User: nothing
 Without session: nothing
 
-recargar al login y logout
-evitar que user pueda entrar a paginas que no puede
+menus, mostrar o no mostrar los links
 mirar los getPage (no se puede filtrar con Long)
 
 
