@@ -17,6 +17,7 @@ import net.ausiamarch.digimondecksSB.repository.DeckRepository;
 import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @Service
@@ -27,6 +28,9 @@ public class DeckService {
 
     @Autowired
     PlayerRepository oPlayerRepository;
+
+    @Autowired
+    PlayerService oPlayerService;
     
     @Autowired
     AuthService oAuthService;
@@ -111,11 +115,7 @@ public class DeckService {
         oDeckEntity.setName(names.get(RandomHelper.getRandomInt(0, names.size() - 1)));
         oDeckEntity.setDescription(null);
         oDeckEntity.setLastUpdate(RandomHelper.getRadomDate());
-        
-        int totalPlayers = (int) oPlayerRepository.count();
-        int randomUserTypeId = RandomHelper.getRandomInt(1, totalPlayers);
-        oPlayerRepository.findById((long) randomUserTypeId)
-        .ifPresent(oDeckEntity::setPlayer);
+        oDeckEntity.setPlayer(oPlayerService.getOneRandom());
 
         return oDeckEntity;
     }
@@ -133,5 +133,15 @@ public class DeckService {
         }
         oDeckRepository.saveAll(DeckToSave);
         return oDeckRepository.count();
+    }
+
+    public DeckEntity getOneRandom() {
+        DeckEntity oDeckEntity = null;
+        int iPosicion = RandomHelper.getRandomInt(0, (int) oDeckRepository.count() - 1);
+        Pageable oPageable = PageRequest.of(iPosicion, 1);
+        Page<DeckEntity> tipoDeckPage = oDeckRepository.findAll(oPageable);
+        List<DeckEntity> tipoDeckList = tipoDeckPage.getContent();
+        oDeckEntity = oDeckRepository.getById(tipoDeckList.get(0).getId());
+        return oDeckEntity;
     }
 }

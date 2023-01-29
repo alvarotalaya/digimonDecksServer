@@ -18,7 +18,6 @@ Admin: everything
 User: nothing
 Without session: nothing
 
-menus, mostrar o no mostrar los links
 mirar los getPage (no se puede filtrar con Long)
 
 

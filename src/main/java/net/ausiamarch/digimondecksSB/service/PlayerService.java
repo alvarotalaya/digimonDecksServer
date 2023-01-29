@@ -15,6 +15,7 @@ import net.ausiamarch.digimondecksSB.repository.PlayerRepository;
 import net.ausiamarch.digimondecksSB.repository.UsertypeRepository;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @Service
@@ -140,6 +141,16 @@ public class PlayerService {
         }
         oPlayerRepository.saveAll(PlayerToSave);
         return oPlayerRepository.count();
+    }
+
+    public PlayerEntity getOneRandom() {
+        PlayerEntity oPlayerEntity = null;
+        int iPosicion = RandomHelper.getRandomInt(0, (int) oPlayerRepository.count() - 1);
+        Pageable oPageable = PageRequest.of(iPosicion, 1);
+        Page<PlayerEntity> tipoPlayerPage = oPlayerRepository.findAll(oPageable);
+        List<PlayerEntity> tipoPlayerList = tipoPlayerPage.getContent();
+        oPlayerEntity = oPlayerRepository.getById(tipoPlayerList.get(0).getId());
+        return oPlayerEntity;
     }
 }
 

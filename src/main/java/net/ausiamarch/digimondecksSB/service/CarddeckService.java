@@ -30,6 +30,12 @@ public class CarddeckService {
     DeckRepository oDeckRepository;
 
     @Autowired
+    CardService oCardService;
+
+    @Autowired
+    DeckService oDeckService;
+
+    @Autowired
     AuthService oAuthService;
     
     public void validate(CardDeckEntity oCardDeckEntity) {
@@ -100,16 +106,8 @@ public class CarddeckService {
         CardDeckEntity oCardDeckEntity = new CardDeckEntity();
 
         oCardDeckEntity.setCopies(RandomHelper.getRandomInt(1, 4));
-
-        int totalCards = (int) oCardRepository.count();
-        int randomCardId = RandomHelper.getRandomInt(1, totalCards);
-        oCardRepository.findById((long) randomCardId)
-        .ifPresent(oCardDeckEntity::setCard);
-
-        int totalDecks = (int) oDeckRepository.count();
-        int randomDeckId = RandomHelper.getRandomInt(1, totalDecks);
-        oDeckRepository.findById((long) randomDeckId)
-        .ifPresent(oCardDeckEntity::setDeck);
+        oCardDeckEntity.setDeck(oDeckService.getOneRandom());
+        oCardDeckEntity.setCard(oCardService.getOneRandom());
 
         return oCardDeckEntity;
     }

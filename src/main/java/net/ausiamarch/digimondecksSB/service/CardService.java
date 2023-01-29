@@ -3,6 +3,7 @@ package net.ausiamarch.digimondecksSB.service;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.validation.constraints.Null;
@@ -18,11 +19,13 @@ import org.springframework.web.servlet.tags.HtmlEscapeTag;
 import com.google.gson.*;
 
 import net.ausiamarch.digimondecksSB.entity.CardEntity;
+import net.ausiamarch.digimondecksSB.helper.RandomHelper;
 import net.ausiamarch.digimondecksSB.helper.ValidationHelper;
 import net.ausiamarch.digimondecksSB.repository.CardRepository;
 import net.minidev.json.parser.ParseException;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 @Service
@@ -249,6 +252,16 @@ public class CardService {
         } else {
             return id;
         }
+    }
+
+    public CardEntity getOneRandom() {
+        CardEntity oCardEntity = null;
+        int iPosicion = RandomHelper.getRandomInt(0, (int) oCardRepository.count() - 1);
+        Pageable oPageable = PageRequest.of(iPosicion, 1);
+        Page<CardEntity> tipoCardPage = oCardRepository.findAll(oPageable);
+        List<CardEntity> tipoCardList = tipoCardPage.getContent();
+        oCardEntity = oCardRepository.getById(tipoCardList.get(0).getId());
+        return oCardEntity;
     }
 
 }
