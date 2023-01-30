@@ -54,7 +54,7 @@ public class PlayerService {
     }
 
     public PlayerEntity get(Long id) {
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdminsOrOwnUsersData(id);
         validate(id);
         return oPlayerRepository.getById(id);
     }
@@ -86,7 +86,7 @@ public class PlayerService {
 
     public Long update(PlayerEntity oPlayerEntity) {
         validate(oPlayerEntity.getId());
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdminsOrOwnUsersData(oPlayerEntity.getId());
         PlayerEntity oOldPlayerEntity=oPlayerRepository.getById(oPlayerEntity.getId());
         oPlayerEntity.setPassword(oOldPlayerEntity.getPassword());
         oPlayerEntity.setUsertype(oOldPlayerEntity.getUsertype());
@@ -94,7 +94,6 @@ public class PlayerService {
     }
 
     public Long create(PlayerEntity oNewPlayerEntity) {
-        oAuthService.OnlyAdmins();
         validate(oNewPlayerEntity);
         oNewPlayerEntity.setId(0L);
         oNewPlayerEntity.setPassword(DIGIMON_DEFAULT_PASSWORD);
@@ -103,7 +102,7 @@ public class PlayerService {
     }
 
     public Long delete(Long id) {
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdminsOrOwnUsersData(id);
         validate(id);
         oPlayerRepository.deleteById(id);
         if (oPlayerRepository.existsById(id)) {

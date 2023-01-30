@@ -208,13 +208,11 @@ public class CardService {
     }
 
     public CardEntity get(Long id) {
-        oAuthService.OnlyAdmins();
         validate(id);
         return oCardRepository.getById(id);
     }
 
     public Page<CardEntity> getPage(Pageable oPageable, String strFilter) {
-        oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if (strFilter == null || strFilter.length() == 0) {
                 return oCardRepository.findAll(oPageable);

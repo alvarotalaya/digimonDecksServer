@@ -50,13 +50,11 @@ public class DeckService {
     }
 
     public DeckEntity get(Long id) {
-        oAuthService.OnlyAdmins();
         validate(id);
         return oDeckRepository.getById(id);
     }
 
     public Page<DeckEntity> getPage(Pageable oPageable, String strFilter, Long player) {
-        oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if (strFilter == null || strFilter.length() == 0) {
             if (player == null) {
@@ -80,7 +78,7 @@ public class DeckService {
 
     public Long update(DeckEntity oDeckEntity) {
         validate(oDeckEntity.getId());
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();//????
         DeckEntity oOldDeckEntity=oDeckRepository.getById(oDeckEntity.getId());
         oDeckEntity.setPlayer(oOldDeckEntity.getPlayer());
         Date date = new Date();
@@ -89,7 +87,7 @@ public class DeckService {
     }
 
     public Long create(DeckEntity oNewDeckEntity) {
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdminsOrPlayers();
         validate(oNewDeckEntity);
         Date date = new Date();
         oNewDeckEntity.setLastUpdate(date);
@@ -99,7 +97,7 @@ public class DeckService {
     }
 
     public Long delete(Long id) {
-        oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();//?????
         validate(id);
         oDeckRepository.deleteById(id);
         if (oDeckRepository.existsById(id)) {

@@ -144,7 +144,7 @@ public class AuthService {
         }
     }
 
-    public void OnlyAdminsOrReviewers() {
+    public void OnlyAdminsOrPlayers() {
         String strPlayer = (String) oRequest.getAttribute("player");
         PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
         if (oPlayerEntity == null) {
@@ -155,6 +155,27 @@ public class AuthService {
                 if (oPlayerEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
                 } else {
                     throw new UnauthorizedException("this request is only allowed to admin or reviewer role");
+                }
+            }
+        }
+    }
+
+    public void OnlyAdminsOrOwnUsersData(Long id) {
+        PlayerEntity oUserSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
+        if (oUserSessionEntity != null) {
+            if (oUserSessionEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
+                if (!oUserSessionEntity.getId().equals(id)) {
+                    PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String) oRequest.getAttribute("player"));
+                if (oPlayerSessionEntity == null) {
+                     throw new UnauthorizedException("no session active");
+                } else {
+                    if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
+                        }else if (!oPlayerSessionEntity.getId().equals(id)) {
+                            throw new UnauthorizedException("this request is only allowed for your own data");
+                        }
+                    }
+                } else {
+                    throw new UnauthorizedException("this request is only allowed to player or admin role");
                 }
             }
         }
