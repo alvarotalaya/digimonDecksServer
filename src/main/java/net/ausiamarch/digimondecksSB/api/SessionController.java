@@ -50,7 +50,7 @@ public class SessionController {
     @Autowired
     AuthService oAuthService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<PlayerEntity> check() {
         return new ResponseEntity<PlayerEntity>(oAuthService.check(), HttpStatus.OK);
     }
@@ -59,6 +59,12 @@ public class SessionController {
     public ResponseEntity<String> login(@org.springframework.web.bind.annotation.RequestBody PlayerBean oPlayerBean) {
         return new ResponseEntity<String>("\"" + oAuthService.login(oPlayerBean) + "\"", HttpStatus.OK);
     }
+
+    @GetMapping("/getId")
+    public ResponseEntity<Long> getId() {
+        return new ResponseEntity<Long>(oAuthService.getUserID(), HttpStatus.OK);
+    }
+    
 
 }
 

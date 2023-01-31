@@ -25,12 +25,12 @@ MAS
 Buscar por texto y efecto (Hecho)
 Criterios de ordenación (Hecho)
 Buscador (Hecho)
-Manos de prueba y stats (cartas por nivel y color)
-Imagenes con calidad
 Ampliar cartas
 Compartir decks
-Ejemplos
+Manos de prueba y stats (cartas por nivel y color)
 Buscar por expansion 
 Mazos populares 
-Todos los alters
-Link a cardmarket
+Link a cardmarket (complicado)
+Ejemplos (?)
+Imagenes con calidad (con api no se puede hacer)
+Todos los alters (con api no se puede hacer)
