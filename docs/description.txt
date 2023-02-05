@@ -19,6 +19,12 @@ User: nothing
 Without session: nothing
 
 mirar los getPage (no se puede filtrar con Long)
+al refrescar la pagina los usertype del menu no funcionan
+que el user no cambie la url y acceda a los datos de otro usuario
+guardar las imagenes en local
+cambiar fecha formateo, y quitar del update y create
+mostrar total de claves ajenas
+no funciona el user card
 
 
 MAS

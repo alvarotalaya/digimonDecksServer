@@ -161,22 +161,14 @@ public class AuthService {
     }
 
     public void OnlyAdminsOrOwnUsersData(Long id) {
-        PlayerEntity oUserSessionEntity = (PlayerEntity) oHttpSession.getAttribute("player");
-        if (oUserSessionEntity != null) {
-            if (oUserSessionEntity.getUsertype().getId().equals(UsertypeHelper.PLAYER)) {
-                if (!oUserSessionEntity.getId().equals(id)) {
-                    PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String) oRequest.getAttribute("player"));
-                if (oPlayerSessionEntity == null) {
-                     throw new UnauthorizedException("no session active");
-                } else {
-                    if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
-                        }else if (!oPlayerSessionEntity.getId().equals(id)) {
-                            throw new UnauthorizedException("this request is only allowed for your own data");
-                        }
-                    }
-                } else {
-                    throw new UnauthorizedException("this request is only allowed to player or admin role");
-                }
+        PlayerEntity oPlayerSessionEntity = oPlayerRepository.findByEmail((String) oRequest.getAttribute("player"));
+        if (oPlayerSessionEntity == null) {
+            throw new UnauthorizedException("no session active");
+        } else {
+            if (oPlayerSessionEntity.getUsertype().getId().equals(UsertypeHelper.ADMIN)) {
+                
+            }else if (!oPlayerSessionEntity.getId().equals(id)) {
+                throw new UnauthorizedException("this request is only allowed for your own data");
             }
         }
     }
@@ -190,10 +182,10 @@ public class AuthService {
                     throw new UnauthorizedException("this request is only allowed for your own Player data");
                 }
             } else {
-                throw new UnauthorizedException("this request is only allowed to Player role");
+                throw new UnauthorizedException("this request is only allowed to player role");
             }
         } else {
-            throw new UnauthorizedException("this request is only allowed to Player role");
+            throw new UnauthorizedException("this request is only allowed to player role");
         }
     }
 

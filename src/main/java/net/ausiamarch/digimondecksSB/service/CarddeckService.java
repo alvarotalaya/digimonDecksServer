@@ -54,7 +54,7 @@ public class CarddeckService {
     }
 
     public Page<CardDeckEntity> getPage(Pageable oPageable, Long card, Long deck) {
-        oAuthService.OnlyAdmins();//????
+        //oAuthService.OnlyAdmins();//????
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if (card == null) {
             if (deck == null) {
@@ -79,7 +79,7 @@ public class CarddeckService {
 
     public Long update(CardDeckEntity oCardDeckEntity) {
         validate(oCardDeckEntity.getId());
-        oAuthService.OnlyAdmins();//?????
+        //oAuthService.OnlyAdmins();//?????
         return oCarddeckRepository.save(oCardDeckEntity).getId();
     }
 
