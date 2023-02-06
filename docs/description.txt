@@ -24,7 +24,15 @@ que el user no cambie la url y acceda a los datos de otro usuario
 guardar las imagenes en local
 cambiar fecha formateo, y quitar del update y create
 mostrar total de claves ajenas
-no funciona el user card
+
+
+PARA ENTREGA LUNES 13
+tipousuario cambiar
+Arreglar modal cartas para añadir a los Mazos
+Boostrap de los mazos
+Editar usuario de user
+Sobres en el home
+Diseño
 
 
 MAS

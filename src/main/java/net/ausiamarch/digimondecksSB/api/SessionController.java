@@ -64,6 +64,11 @@ public class SessionController {
     public ResponseEntity<Long> getId() {
         return new ResponseEntity<Long>(oAuthService.getUserID(), HttpStatus.OK);
     }
+
+    @GetMapping("/getName")
+    public ResponseEntity<String> getName() {
+        return new ResponseEntity<String>(oAuthService.getUserName(), HttpStatus.OK);
+    }
     
 
 }

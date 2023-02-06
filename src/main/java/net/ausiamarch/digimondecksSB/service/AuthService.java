@@ -120,6 +120,17 @@ public class AuthService {
         }
     }
 
+    public String getUserName() {
+        String strPlayer = (String) oRequest.getAttribute("player");
+        PlayerEntity oPlayerEntity = oPlayerRepository.findByEmail(strPlayer);
+        if (oPlayerEntity != null) {
+            String name = "\"" + oPlayerEntity.getName() + "\"";
+            return name;
+        } else {
+            throw new UnauthorizedException("this request is only allowed to auth Players");
+        }
+    }
+
 
     public boolean isPlayer() {
         String strPlayer = (String) oRequest.getAttribute("player");
