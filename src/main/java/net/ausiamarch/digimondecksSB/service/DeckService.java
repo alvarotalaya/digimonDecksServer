@@ -97,7 +97,7 @@ public class DeckService {
     }
 
     public Long delete(Long id) {
-        oAuthService.OnlyAdmins();//?????
+        //oAuthService.OnlyAdmins();
         validate(id);
         oDeckRepository.deleteById(id);
         if (oDeckRepository.existsById(id)) {

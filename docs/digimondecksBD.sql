@@ -70,8 +70,8 @@ CREATE TABLE `deck` (
 -- Volcado de datos para la tabla `deck`
 --
 
-INSERT INTO `deck` (`id`, `idPlayer`, `description`, `lastUpdate`) VALUES
-(1, 1, 'Agumon deck', '2022-09-25 00:00:00');
+INSERT INTO `deck` (`id`, `idPlayer`, `name`, `description`, `lastUpdate`) VALUES
+(1, 1, 'Agumon', 'Deck based in agumon', '2022-09-25 00:00:00');
 
 -- --------------------------------------------------------
 

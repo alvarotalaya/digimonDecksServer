@@ -1,6 +1,5 @@
 package net.ausiamarch.digimondecksSB.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "deck")
@@ -30,6 +31,8 @@ public class DeckEntity {
 
     String name;
     String description;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Date lastupdate;
 
     @OneToMany(mappedBy = "deck", fetch = FetchType.LAZY)

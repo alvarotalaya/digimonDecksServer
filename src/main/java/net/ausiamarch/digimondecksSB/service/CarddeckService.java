@@ -48,13 +48,12 @@ public class CarddeckService {
     }
 
     public CardDeckEntity get(Long id) {
-        oAuthService.OnlyAdmins();//?????
+        oAuthService.OnlyAdminsOrPlayers();
         validate(id);
         return oCarddeckRepository.getById(id);
     }
 
     public Page<CardDeckEntity> getPage(Pageable oPageable, Long card, Long deck) {
-        //oAuthService.OnlyAdmins();//????
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if (card == null) {
             if (deck == null) {
@@ -79,12 +78,12 @@ public class CarddeckService {
 
     public Long update(CardDeckEntity oCardDeckEntity) {
         validate(oCardDeckEntity.getId());
-        //oAuthService.OnlyAdmins();//?????
+        oAuthService.OnlyAdminsOrPlayers();
         return oCarddeckRepository.save(oCardDeckEntity).getId();
     }
 
     public Long create(CardDeckEntity oNewCardDeckEntity) {
-        oAuthService.OnlyAdmins();//?????
+        oAuthService.OnlyAdminsOrPlayers();
         validate(oNewCardDeckEntity);
         oNewCardDeckEntity.setId(0L);
 
@@ -92,7 +91,7 @@ public class CarddeckService {
     }
 
     public Long delete(Long id) {
-        oAuthService.OnlyAdmins();//??????
+        oAuthService.OnlyAdminsOrPlayers();
         validate(id);
         oCarddeckRepository.deleteById(id);
         if (oCarddeckRepository.existsById(id)) {

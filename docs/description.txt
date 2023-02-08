@@ -19,19 +19,15 @@ User: nothing
 Without session: nothing
 
 mirar los getPage (no se puede filtrar con Long)
-al refrescar la pagina los usertype del menu no funcionan
-que el user no cambie la url y acceda a los datos de otro usuario
 guardar las imagenes en local
-cambiar fecha formateo, y quitar del update y create
-mostrar total de claves ajenas
-
+borrar los datos del form del user modal cards
+que el user no cambie la url y este el plist vacio
 
 PARA ENTREGA LUNES 13
-tipousuario cambiar
-Arreglar modal cartas para añadir a los Mazos
+delete en casacada
+mas y menos del carddeck user refrescar
 Boostrap de los mazos
 Editar usuario de user
-Sobres en el home
 Diseño
 
 
