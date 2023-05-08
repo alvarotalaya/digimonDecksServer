@@ -22,23 +22,42 @@ mirar los getPage (no se puede filtrar con Long)
 guardar las imagenes en local
 borrar los datos del form del user modal cards
 que el user no cambie la url y este el plist vacio
+roll de cartas
 
-PARA ENTREGA LUNES 13
-delete en casacada
-mas y menos del carddeck user refrescar
-Boostrap de los mazos
-Editar usuario de user
-Diseño
+Maria
+tipografia rotunda
+
+fondo de tarjeta del color de la carta
+representar los datos de forma mas directa, estilo pagina pokemon tcg
+desplegable para añadir carta al mazo, el mas al lado de la linea del nombre
+borrar claves ajenas
+
+Rafa
+actualiza carddeck despues de dos clicks //
+no se puede tocar la pagina si no se hace click en una imagenes //
+crear cuenta cliente ---
+errores en consola de image y totalofelements ()
 
 
-MAS
+Testing
+Filtro de attribute no funciona
+Texto modal carddeck
+Tope de 4 en carddeck
+Límite de cartas
+Nivel en carddeck detail
+Slider de tamaño
+Añadir desde carddeck
+CardDetail cuadrados con el tipo de datos
+Foto menu link
+
+Formulario
 Buscar por texto y efecto (Hecho)
 Criterios de ordenación (Hecho)
 Buscador (Hecho)
+Buscar por expansion (hecho)
 Ampliar cartas
 Compartir decks
 Manos de prueba y stats (cartas por nivel y color)
-Buscar por expansion 
 Mazos populares 
 Link a cardmarket (complicado)
 Ejemplos (?)

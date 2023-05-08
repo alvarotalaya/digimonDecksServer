@@ -204,7 +204,8 @@ public class CardService {
         String text1 = text.replace("&lt;", "<");
         String text2 = text1.replace("&gt;", ">");
         String text3 = text2.replace("&#91;", "[");
-        return text3;
+        String text4 = text3.replace("&#160;", " ");
+        return text4;
     }
 
     public CardEntity get(Long id) {
