@@ -1,36 +1,15 @@
-Card
-Admin: can do everything but the idea is not create cards althought import then from the api
-User: only see the cards
-Without session: only see the cards
-
-Deck
-Admin: everything
-User: can create and delete his decks but can see all the decks
-Without session: only see the decks
-
-Player
-Admin: everything
-User: see his own information
-Without session: create a User
-
-Usertype
-Admin: everything
-User: nothing
-Without session: nothing
-
-mirar los getPage (no se puede filtrar con Long)
-guardar las imagenes en local
-borrar los datos del form del user modal cards
-que el user no cambie la url y este el plist vacio
-roll de cartas
 
 Maria
 tipografia rotunda
-
 fondo de tarjeta del color de la carta
-representar los datos de forma mas directa, estilo pagina pokemon tcg
-desplegable para añadir carta al mazo, el mas al lado de la linea del nombre
-borrar claves ajenas
+representar los datos de forma mas directa, estilo pagina pokemon tcg //
+desplegable para añadir carta al mazo, el mas al lado de la linea del nombre //
+borrar claves ajenas //
+
+boton + del card detail en la misma linea formulario //
+player info agrupar por apartados /
+quitar home y hacerlo con el logo //
+iconos lupa ajustar //
 
 Rafa
 actualiza carddeck despues de dos clicks //
@@ -39,15 +18,21 @@ crear cuenta cliente ---
 errores en consola de image y totalofelements ()
 
 
+
+
+card detial tabla se pone en una filtra
+boton info player
+
+
 Testing
-Filtro de attribute no funciona
-Texto modal carddeck
-Tope de 4 en carddeck
-Límite de cartas
-Nivel en carddeck detail
-Slider de tamaño
-Añadir desde carddeck
-CardDetail cuadrados con el tipo de datos
+Filtro de attribute no funciona //
+Texto modal carddeck //
+Tope de 4 en carddeck //
+Límite de cartas 
+Nivel en carddeck detail //
+Slider de tamaño //
+Añadir desde carddeck ?
+CardDetail cuadrados con el tipo de datos /
 Foto menu link
 
 Formulario

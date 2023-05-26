@@ -95,7 +95,7 @@ public class CardService {
                     }
 
                     if (oCardRepository.existsByCardnumber(oCardEntity.getCardnumber())) {
-                        break;
+                        continue;
                     }
 
                     if(card.get("name").isJsonNull()){
