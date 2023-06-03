@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class PlayerEntity {
     @JoinColumn(name = "idusertype")
     private UsertypeEntity usertype;
 
-    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "player",  fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<DeckEntity> decks;
 
     public PlayerEntity() {

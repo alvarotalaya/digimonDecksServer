@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class CardEntity {
     String sourceeffect;
     String image;
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "card",  fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CardDeckEntity> carddecks;
 
     public CardEntity() {
