@@ -19,21 +19,16 @@ errores en consola de image y totalofelements ()
 
 
 
-
-card detial tabla se pone en una filtra
-boton info player
-
-
 Testing
 Filtro de attribute no funciona //
 Texto modal carddeck //
 Tope de 4 en carddeck //
-Límite de cartas 
+Límite de cartas //
 Nivel en carddeck detail //
 Slider de tamaño //
 Añadir desde carddeck ?
-CardDetail cuadrados con el tipo de datos /
-Foto menu link
+CardDetail cuadrados con el tipo de datos //
+Foto menu link //
 
 Formulario
 Buscar por texto y efecto (Hecho)

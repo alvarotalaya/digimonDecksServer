@@ -112,7 +112,7 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id`, `name`, `email`, `password`, `idUserType`) VALUES
-(1, 'alvaro', 'altaro2002@gmail.com', 'admin', 1);
+(1, 'alvaro', 'altaro2002@gmail.com', 'b7785cdffaf69308127a6e6db8fb841984a40941cfb74617312c6d4f57db6662', 1);
 
 -- --------------------------------------------------------
 
