@@ -133,6 +133,19 @@ INSERT INTO `usertype` (`id`, `type`) VALUES
 (1, 'admin'),
 (2, 'user');
 
+
+CREATE TABLE `image` (
+  `id` bigint(20) NOT NULL,
+  `bytes` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `idCard` bigint(20) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `image`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `image`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 -- --------------------------------------------------------
 
 --

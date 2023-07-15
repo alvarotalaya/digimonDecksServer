@@ -39,12 +39,17 @@ public class CardEntity {
     @OneToMany(mappedBy = "card",  fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CardDeckEntity> carddecks;
 
+    @OneToMany(mappedBy = "card",  fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ImageEntity> images;
+
     public CardEntity() {
         this.carddecks = new ArrayList<>();
+        this.images = new ArrayList<>();
     }
 
     public CardEntity(Long id) {
         this.carddecks = new ArrayList<>();
+        this.images = new ArrayList<>();
         this.id = id;
     }
 
