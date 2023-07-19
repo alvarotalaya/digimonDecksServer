@@ -6,15 +6,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.validation.constraints.Null;
-
 import net.ausiamarch.digimondecksSB.exception.ResourceNotFoundException;
 import net.ausiamarch.digimondecksSB.exception.ResourceNotModifiedException;
 import net.ausiamarch.digimondecksSB.exception.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 import com.google.gson.*;
 
@@ -22,6 +19,7 @@ import net.ausiamarch.digimondecksSB.entity.CardEntity;
 import net.ausiamarch.digimondecksSB.helper.RandomHelper;
 import net.ausiamarch.digimondecksSB.helper.ValidationHelper;
 import net.ausiamarch.digimondecksSB.repository.CardRepository;
+import net.ausiamarch.digimondecksSB.service.ImageService;
 import net.minidev.json.parser.ParseException;
 
 import org.springframework.data.domain.Page;
@@ -36,6 +34,9 @@ public class CardService {
 
     @Autowired
     AuthService oAuthService;
+
+    @Autowired
+    ImageService oImageService;
 
     public void validate(Long id) {
         if (!oCardRepository.existsById(id)) {
@@ -193,7 +194,7 @@ public class CardService {
                         oCardEntity.setImage(image);
                     }
                     
-                    oCardRepository.save(oCardEntity);
+                    oImageService.saveImage(card.get("image_url").getAsString(), oCardRepository.save(oCardEntity).getId());
                 }   
             }   
         }

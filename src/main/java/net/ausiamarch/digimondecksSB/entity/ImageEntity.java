@@ -19,11 +19,9 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private String nombre;
 
     @Lob
-    private byte[] datos;
+    private byte[] data;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idcard")
@@ -37,20 +35,12 @@ public class ImageEntity {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public byte[] getData() {
+        return data;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public byte[] getDatos() {
-        return datos;
-    }
-
-    public void setDatos(byte[] datos) {
-        this.datos = datos;
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public CardEntity getCard() {
